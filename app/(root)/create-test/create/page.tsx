@@ -1,5 +1,6 @@
 "use client";
-import AddedQuestionsList from "@/components/shared/addedQuestionsList";
+
+import AddedQuestionsList from "@/components/shared/AddedQuestionsList";
 import { FormEventHandler, KeyboardEvent, useState } from "react";
 
 export type Question = {
