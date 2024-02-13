@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axios from "axios";
 import { PropagateLoader } from "react-spinners";
+import { logIn } from "@/lib/actions/auth.actions";
 
 const Page = () => {
   const router = useRouter();
@@ -13,6 +13,8 @@ const Page = () => {
   });
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     if (user.email.length > 0 && user.password.length > 0) {
       setButtonDisabled(false);
@@ -20,25 +22,25 @@ const Page = () => {
       setButtonDisabled(true);
     }
   }, [user]);
+
   const onSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
     try {
-      const response = await axios.post("/api/login", user);
-      if (response.status === 200) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
+      await logIn(user);
+      router.push("/");
+    } catch (error: any) {
+      setErrorMessage(error.message);
     } finally {
       setLoading(false);
     }
   };
   return (
-    <div
+    <form
       className={
         "flex flex-col items-center justify-center h-screen p-5 w-full"
       }
+      onSubmit={onSubmit}
     >
       <h1 className={"text-2xl my-16"}>Login</h1>
       <label htmlFor={"email"}>Email</label>
@@ -67,15 +69,20 @@ const Page = () => {
         className={
           "mt-4 border-2 border-white py-2 rounded hover:bg-white hover:text-black p-2 cursor-pointer"
         }
-        onClick={onSubmit}
+        type='submit'
         disabled={buttonDisabled}
       >
         {loading ? <PropagateLoader /> : "Login"}
       </button>
-      <Link className={"text-sm my-2"} href={"/sign-up"}>
-        Don't have an account? Sign Up
-      </Link>
-    </div>
+
+      <p className={"text-sm my-2"}>
+        Don't have an account?
+        <Link className={"text-violet ml-2"} href={"/sign-up"}>
+          Sign Up
+        </Link>
+      </p>
+      {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+    </form>
   );
 };
 export default Page;

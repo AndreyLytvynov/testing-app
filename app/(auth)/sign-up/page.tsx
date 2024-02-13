@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BounceLoader } from "react-spinners";
 import axios from "axios";
+import { signUp } from "@/lib/actions/auth.actions";
 
 const Page = () => {
   const router = useRouter();
@@ -12,8 +13,6 @@ const Page = () => {
     email: "",
     password: "",
     username: "",
-    isVerified: false,
-    isAdmin: false,
   });
   const [buttonDisabled, setButtonDisabled] = useState(false);
   useEffect(() => {
@@ -31,22 +30,17 @@ const Page = () => {
   const onSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
-    try {
-      const response = await axios.post("/api/sign-up", user);
-      if (response.status === 200) {
-        router.push("/login");
-      }
-    } catch (error) {
-      console.log("error", error);
-    } finally {
-      setLoading(false);
-    }
+    await signUp(user);
+    router.push("/");
+    setLoading(false);
   };
+
   return (
-    <div
+    <form
       className={
         "flex flex-col items-center justify-center h-screen p-5 w-full"
       }
+      onSubmit={onSubmit}
     >
       <h1 className={"text-2xl my-16"}>Sign Up</h1>
       <label className={"flex flex-col items-start"} htmlFor={"username"}>
@@ -88,15 +82,19 @@ const Page = () => {
         className={
           "mt-4 border-2 border-white py-2 rounded hover:bg-white hover:text-black p-2 cursor-pointer"
         }
-        onClick={onSubmit}
         disabled={buttonDisabled}
+        type='submit'
       >
         {loading ? <BounceLoader className={""} /> : "Sign Up"}
       </button>
-      <Link className={"text-sm my-2"} href={"/login"}>
-        Already have an account? Login
-      </Link>
-    </div>
+
+      <p className={"text-sm my-2"}>
+        Don't have an account?
+        <Link className={"text-violet ml-2"} href={"/login"}>
+          Login
+        </Link>
+      </p>
+    </form>
   );
 };
 export default Page;

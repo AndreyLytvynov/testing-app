@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-light-1 flex`}>
         <LeftSidebar />
 
-        <main className='flex flex-1 min-h-screen flex-col items-center justify-between p-24'>
+        <main className='flex flex-1 min-h-screen flex-col p-5'>
           {children}
         </main>
       </body>

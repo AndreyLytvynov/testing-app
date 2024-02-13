@@ -1,59 +1,39 @@
-"use client";
+import { getUser } from "@/lib/actions/user.actions";
+import LogOutBtn from "./buttons/LogOutBtn";
+import NavLinks from "./NavLinks";
+import Image from "next/image";
 
-import { sidebarLinks } from "@/constants";
-import axios from "axios";
-import { cookies } from "next/headers";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+const LeftSidebar = async () => {
+  const user = await getUser();
 
-const LeftSidebar = () => {
-  const pathname = usePathname();
-  const router = useRouter();
+  if (user)
+    return (
+      <section className='bg-violet w-fit py-10 pl-7 flex flex-col max-w-[300px]'>
+        <div className='flex mb-4 flex-col'>
+          <div className='flex items-center pr-3'>
+            <Image
+              src={
+                "https://robohash.org/a02bab0df6c6b85961c0a6e846344bd5?set=set4&bgset=&size=400x400"
+              }
+              width={60}
+              height={60}
+              alt='avatar'
+              className='mr-2 rounded-full border border-light-1'
+            />
+            <div>
+              <p className='text-sm text-light-1 line-clamp-1 '>
+                {user.username}
+              </p>
 
-  const handleLogout = async () => {
-    try {
-      const response = await axios.delete("/api/logout");
-      if (response.status === 200) {
-        router.push("/login");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+              <p className='text-green-500'>{user.role}</p>
+            </div>
+          </div>
+        </div>
 
-  return (
-    <section className='custom-scrollbar bg-accent w-fit py-10 pl-10'>
-      <h1 className='text-xl text-light-1 mb-4'>Test academy</h1>
-      <button className='p-3 border border-red-300 mb-4' onClick={handleLogout}>
-        LogOut
-      </button>
-      <nav>
-        <ul className='flex flex-col gap-2'>
-          {sidebarLinks.map((link) => {
-            const isActive =
-              (pathname.includes(link.route) && link.route.length > 1) ||
-              pathname === link.route;
-
-            return (
-              <li
-                key={link.label}
-                className={`text-light-1 rounded-l-3xl hover:bg-light-1 hover:text-accent duration-200 ${
-                  isActive && "text-accent bg-light-1"
-                }`}
-              >
-                <Link href={link.route} className='flex items-center pl-5'>
-                  {link.imgURL}
-                  <p className=' py-3 px-6 pr-10 text-lg font-semibold'>
-                    {link.label}
-                  </p>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </section>
-  );
+        <NavLinks role={user.role} />
+        <LogOutBtn />
+      </section>
+    );
 };
 
 export default LeftSidebar;

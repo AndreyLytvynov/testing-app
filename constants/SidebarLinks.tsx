@@ -9,7 +9,12 @@ export const sidebarLinks = [
   },
   {
     imgURL: <SearchIcon />,
-    route: "/search",
-    label: "Search",
+    route: "/tests",
+    label: "Test list",
+  },
+  {
+    imgURL: <SearchIcon />,
+    route: "/create-test/create",
+    label: "Create test",
   },
 ];
