@@ -1,15 +1,17 @@
-import { getUser } from "@/lib/actions/user.actions";
-import LogOutBtn from "./buttons/LogOutBtn";
 import NavLinks from "./NavLinks";
 import Image from "next/image";
 
+import { getUserFromToken } from "@/lib/actions/user.actions";
+
+import LogOutBtn from "./buttons/LogOutBtn";
+
 const LeftSidebar = async () => {
-  const user = await getUser();
+  const user = await getUserFromToken();
 
   if (user)
     return (
-      <section className='bg-violet w-fit py-10 pl-7 flex flex-col max-w-[300px]'>
-        <div className='flex mb-4 flex-col'>
+      <section className='bg-violet w-fit py-10 pl-7 flex flex-col max-w-[270px] justify-start'>
+        <div className='flex mb-8 flex-col'>
           <div className='flex items-center pr-3'>
             <Image
               src={
@@ -29,7 +31,6 @@ const LeftSidebar = async () => {
             </div>
           </div>
         </div>
-
         <NavLinks role={user.role} />
         <LogOutBtn />
       </section>

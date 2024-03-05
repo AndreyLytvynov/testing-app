@@ -2,7 +2,7 @@
 
 import { LogOut } from "@/lib/actions/auth.actions";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { IoIosLogOut } from "react-icons/io";
 
 const LogOutBtn = () => {
   const router = useRouter();
@@ -14,10 +14,11 @@ const LogOutBtn = () => {
 
   return (
     <button
-      className='p-3 border border-red-300 mb-4 max-w-[100px]'
+      className='rounded-l-3xl p-3 flex items-center justify-start gap-3 text-light-1 hover:bg-light-1 hover:text-violet'
       onClick={handleLogout}
     >
-      LogOut
+      <IoIosLogOut className='' size={30} />
+      <p className='x font-bold text-sm'>LogOut</p>
     </button>
   );
 };

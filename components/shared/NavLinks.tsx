@@ -1,9 +1,10 @@
 "use client";
 
-import { sidebarLinks } from "@/constants/SidebarLinks";
+import { FC } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC } from "react";
+
+import { sidebarLinks } from "@/constants/SidebarLinks";
 
 type NavLinksProps = {
   role: string | undefined;
@@ -31,7 +32,7 @@ const NavLinks: FC<NavLinksProps> = ({ role = "user" }) => {
               }`}
             >
               <Link href={link.route} className='flex items-center pl-5'>
-                {link.imgURL}
+                {link.icon}
                 <p className=' py-3 px-6 pr-10 text-lg font-semibold'>
                   {link.label}
                 </p>

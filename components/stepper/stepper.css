@@ -1,0 +1,12 @@
+.step-item {
+  @apply relative flex flex-col justify-center items-center;
+}
+.step-item:not(:first-child):before {
+  @apply content-[''] bg-slate-200 absolute w-full h-[2px] right-[53%] top-1/2 -translate-y-2/4;
+}
+.step {
+  @apply w-6 h-2 flex items-center justify-center z-10 relative bg-white rounded-full border border-slate-200;
+}
+.active .step {
+  @apply bg-violet;
+}

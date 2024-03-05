@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  passedTest: [{ type: mongoose.Schema.Types.ObjectId, ref: "passedTest" }],
 });
 const User = mongoose.models.user || mongoose.model("user", userSchema);
 export default User;

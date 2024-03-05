@@ -38,8 +38,18 @@ module.exports = {
     extend: {
       colors: {
         violet: "#4D44B5",
+        "text-color": "#303972",
         "dark-1": "#000000",
         "light-1": "#F3F4FF",
+        "light-2": "#e5e7f3",
+        "light-3": "#d8dbf7",
+        "grey-1": "#F5F5F5",
+        "grey-2": "#C1BBEB",
+        "grey-3": "#ac9df2",
+      },
+      backgroundImage: {
+        passed: "url('/assets/passed.png')",
+        failed: "url('/assets/failed.png')",
       },
     },
   },

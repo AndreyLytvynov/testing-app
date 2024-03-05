@@ -1,20 +1,22 @@
-import HomeIcon from "@/components/icons/HomeIcon";
-import SearchIcon from "@/components/icons/SearchIcon";
+import { BsClipboardDataFill } from "react-icons/bs";
+import { IoIosCreate } from "react-icons/io";
+
+import { FaHome } from "react-icons/fa";
 
 export const sidebarLinks = [
   {
-    imgURL: <HomeIcon />,
+    icon: <FaHome size={25} />,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: <SearchIcon />,
+    icon: <BsClipboardDataFill size={25} />,
     route: "/tests",
-    label: "Test list",
+    label: "All tests",
   },
   {
-    imgURL: <SearchIcon />,
-    route: "/create-test/create",
+    icon: <IoIosCreate size={25} />,
+    route: "/create-test",
     label: "Create test",
   },
 ];

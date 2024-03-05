@@ -26,8 +26,6 @@ export async function logIn(data: RequestUser): Promise<void> {
 
     const user = await User.findOne({ email });
     if (!user) {
-      const { name, cause, message, stack } = new Error();
-      console.log("=========================", message);
       throw new Error(`Incorrect email or password`);
     }
 
