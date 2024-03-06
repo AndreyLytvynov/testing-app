@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getTest } from "@/lib/actions/testing.actions";
 
 import { TestResponse } from "@/types/test";
+import Heading from "@/components/shared/Heading";
 
 const StartTest = async ({ params }: { params: { id: string } }) => {
   const responseJson = await getTest(params.id);
@@ -12,7 +13,7 @@ const StartTest = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className=''>
-      <h1 className='text-lg font-bold text-violet'>{test.name}</h1>
+      <Heading>{test.name}</Heading>
       <div className='bg-white rounded-lg p-2 mb-3 text-text-color'>
         <p>The test contains {test.questions.length} questions;</p>
         <p>

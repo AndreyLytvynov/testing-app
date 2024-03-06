@@ -8,6 +8,7 @@ import TestResult from "./testResult/TestResult";
 import Button from "./shared/buttons/Button";
 
 import { Question, TestResponse } from "@/types/test";
+import Heading from "./shared/Heading";
 
 type TestingProps = {
   test: TestResponse;
@@ -43,7 +44,7 @@ const Testing: FC<TestingProps> = ({ test }) => {
     <>
       {!viewResult ? (
         <>
-          <h1 className='mb-4 text-violet text-xl font-bold'>{test.name}</h1>
+          <Heading>{test.name}</Heading>
           <Stepper
             steps={test.questions}
             currentStep={questionNumber}

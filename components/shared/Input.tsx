@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent } from "react";
+import React, { ChangeEvent, FC, KeyboardEvent } from "react";
 
 type InputProps = {
   className?: string;
@@ -6,8 +6,10 @@ type InputProps = {
   placeholder: string;
   type: string;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   id?: string;
+  value?: string;
 };
 
 const Input: FC<InputProps> = ({
@@ -18,6 +20,8 @@ const Input: FC<InputProps> = ({
   onKeyDown,
   required = false,
   id,
+  onChange,
+  value,
 }) => {
   return (
     <input
@@ -28,6 +32,8 @@ const Input: FC<InputProps> = ({
       onKeyDown={onKeyDown}
       required={required}
       id={id}
+      onChange={onChange}
+      value={value}
     />
   );
 };

@@ -5,6 +5,7 @@ import { connectToDB } from "../mongo";
 import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { RequestUser } from "@/types/user";
 
 export async function LogOut(): Promise<void> {
   try {
@@ -53,7 +54,7 @@ export async function logIn(data: RequestUser): Promise<void> {
     const cookieStore = cookies();
     cookieStore.set("token", token);
   } catch (error: any) {
-    throw new Error(`${error.message}`);
+    throw new Error(error.message);
   }
 }
 
@@ -61,6 +62,10 @@ export async function signUp(data: RequestUser): Promise<void> {
   await connectToDB();
   try {
     const { username, email, password } = data;
+
+    const checkUser = await User.findOne({ email });
+    if (checkUser) throw new Error(`This email is already in use`);
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -85,6 +90,6 @@ export async function signUp(data: RequestUser): Promise<void> {
     const cookieStore = cookies();
     cookieStore.set("token", token);
   } catch (error: any) {
-    throw new Error(`Failed to logOut: ${error.message}`);
+    throw new Error(error.message);
   }
 }

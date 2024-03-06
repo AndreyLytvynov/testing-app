@@ -7,7 +7,9 @@ type WhiteContainerProps = {
 
 const WhiteContainer: FC<WhiteContainerProps> = ({ children, className }) => {
   return (
-    <div className={`bg-white p-3 rounded-xl ${className}`}>{children}</div>
+    <section className={`bg-white p-3 rounded-xl ${className}`}>
+      {children}
+    </section>
   );
 };
 

@@ -23,9 +23,7 @@ const UserStatistics: FC<UserStatisticsProps> = async ({ user }) => {
       <div className='relative h-[160px] bg-white w-full self-end rounded-b-xl pl-5'>
         <div className='p-3 bg-white absolute -translate-y-1/2 left-4 rounded-full overflow-hidden'>
           <Image
-            src={
-              "https://res.cloudinary.com/dn5s7eije/image/upload/v1708622607/custom_folder/1708622645393.jpg"
-            }
+            src={"/assets/logo.jpg"}
             alt='user photo'
             width={500}
             height={500}

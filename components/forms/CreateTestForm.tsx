@@ -106,136 +106,135 @@ const CreateTestForm = () => {
 
   return (
     <>
-      <WhiteContainer>
-        <form
-          className={"flex flex-col items-center w-full p-3"}
-          onSubmit={onSubmit}
-        >
-          <div className='border-b border-grey-2 gap-2 pb-4 w-full flex justify-between items-center mb-3'>
-            {testName ? (
-              <p
-                onClick={() => {
-                  setTestName("");
-                }}
-                className='text-xl p-3 text-violet font-bold'
-              >
-                {testName}
-              </p>
+      <form
+        className={"flex flex-col items-center w-full p-3"}
+        onSubmit={onSubmit}
+      >
+        <div className='border-b border-grey-2 gap-2 pb-4 w-full flex justify-between items-center mb-3'>
+          {testName ? (
+            <p
+              onClick={() => {
+                setTestName("");
+              }}
+              className='text-xl p-3 text-violet font-bold'
+            >
+              {testName}
+            </p>
+          ) : (
+            <div>
+              <label className='text-violet self-start' htmlFor='name'>
+                <p className='text-xs'>Test name</p>
+              </label>
+              <Input
+                type={"text"}
+                placeholder={"test name*"}
+                name={"name"}
+                onKeyDown={handleKeyPress}
+                required={true}
+                id={"name"}
+              />
+            </div>
+          )}
+
+          <Button
+            className='border-none ml-auto'
+            onClick={handleCompleteTest}
+            disabled={questions.length === 0}
+          >
+            <div
+              className={`gap-2 ${
+                questions.length === 0
+                  ? "text-light-3"
+                  : "text-violet hover:text-white"
+              }  flex items-center justify-between`}
+            >
+              <FaSave className='text-lg' />
+              <p className='text-lg font-semibold'>Save test</p>
+            </div>
+          </Button>
+        </div>
+        <div className='flex justify-between gap-4 w-full'>
+          <div className='relative self-start mb-2'>
+            <input
+              className='cursor-pointer w-[300px] h-[300px] opacity-0'
+              type='file'
+              name='file'
+              onChange={handleFileChange}
+            />
+            {image ? (
+              <img
+                src={image}
+                className='rounded-lg pointer-events-none object-cover w-[300px] h-[300px] absolute top-0 left-0'
+                alt='photo question'
+                width={100}
+                height={100}
+              />
             ) : (
-              <div>
-                <label className='text-violet self-start' htmlFor='name'>
-                  <p className='text-xs'>Test name</p>
-                </label>
-                <Input
-                  type={"text"}
-                  placeholder={"test name*"}
-                  name={"name"}
-                  onKeyDown={handleKeyPress}
-                  required={true}
-                  id={"name"}
-                />
+              <div className='pointer-events-none absolute top-0 left-0 flex flex-col items-center justify-center w-[300px] h-[300px] border border-dashed border-light-3 text-light-3 rounded-lg cursor-pointer'>
+                <MdOutlineAddAPhoto className='w-14 h-14' />
+                <p>add photo</p>
               </div>
             )}
-
-            <Button
-              className='border-none ml-auto'
-              onClick={handleCompleteTest}
-              disabled={questions.length === 0}
-            >
-              <div
-                className={`gap-2 ${
-                  questions.length === 0
-                    ? "text-light-3"
-                    : "text-violet hover:text-white"
-                }  flex items-center justify-between`}
-              >
-                <FaSave className='text-lg' />
-                <p className='text-lg font-semibold'>Save test</p>
-              </div>
-            </Button>
-          </div>
-          <div className='flex justify-between gap-4 w-full'>
-            <div className='relative self-start mb-2'>
-              <input
-                className='cursor-pointer w-[300px] h-[300px] opacity-0'
-                type='file'
-                name='file'
-                onChange={handleFileChange}
-              />
-              {image ? (
-                <img
-                  src={image}
-                  className='rounded-lg pointer-events-none object-cover w-[300px] h-[300px] absolute top-0 left-0'
-                  alt='photo question'
-                  width={100}
-                  height={100}
-                />
-              ) : (
-                <div className='pointer-events-none absolute top-0 left-0 flex flex-col items-center justify-center w-[300px] h-[300px] border border-dashed border-light-3 text-light-3 rounded-lg cursor-pointer'>
-                  <MdOutlineAddAPhoto className='w-14 h-14' />
-                  <p>add photo</p>
-                </div>
-              )}
-            </div>
-
-            <div className='flex flex-col w-full h-[300px] mb-4 gap-4'>
-              <textarea
-                id='question'
-                className={
-                  "flex-1 custom-scrollbar text-violet font-medium text-base resize-none w-full p-2 rounded border border-grey-2 caret-grey-2 outline-violet"
-                }
-                name='question'
-                required
-                placeholder='text question*'
-              />
-              <input
-                type='text'
-                className={
-                  "h-10 custom-scrollbar text-violet font-medium text-base resize-none w-full p-2 rounded border border-grey-2 caret-grey-2 outline-violet"
-                }
-                name={"docs"}
-                placeholder='docs link'
-                onKeyDown={handleKeyPress}
-              />
-            </div>
           </div>
 
-          <div className='flex flex-wrap gap-5 w-full'>
-            <Input
-              type={"text"}
-              placeholder={"correct answer*"}
-              name={"correctAnswer"}
-              onKeyDown={handleKeyPress}
-              className='placeholder:text-green-500 w-[calc(50%-10px)]'
-              required={true}
+          <div className='flex flex-col w-full h-[300px] mb-4 gap-4'>
+            <textarea
+              id='question'
+              className={
+                "flex-1 custom-scrollbar text-violet font-medium text-base resize-none w-full p-2 rounded border border-grey-2 caret-grey-2 outline-violet"
+              }
+              name='question'
+              required
+              placeholder='text question*'
             />
-            <Input
-              type={"text"}
-              placeholder={"answer*"}
-              name={"answer2"}
+            <input
+              type='text'
+              className={
+                "h-10 custom-scrollbar text-violet font-medium text-base resize-none w-full p-2 rounded border border-grey-2 caret-grey-2 outline-violet"
+              }
+              name={"docs"}
+              placeholder='docs link'
               onKeyDown={handleKeyPress}
-              className='w-[calc(50%-10px)]'
-            />
-            <Input
-              type={"text"}
-              placeholder={"answer"}
-              name={"answer3"}
-              onKeyDown={handleKeyPress}
-              className='w-[calc(50%-10px)]'
-            />
-            <Input
-              type={"text"}
-              placeholder={"answer"}
-              name={"answer4"}
-              onKeyDown={handleKeyPress}
-              className='w-[calc(50%-10px)]'
             />
           </div>
-          <Button className='mt-4' type={"submit"}>
-            Add question
-          </Button>
-        </form>
-      </WhiteContainer>
+        </div>
+
+        <div className='flex flex-wrap gap-5 w-full'>
+          <Input
+            type={"text"}
+            placeholder={"correct answer*"}
+            name={"correctAnswer"}
+            onKeyDown={handleKeyPress}
+            className='placeholder:text-green-500 w-[calc(50%-10px)]'
+            required={true}
+          />
+          <Input
+            type={"text"}
+            placeholder={"answer*"}
+            name={"answer2"}
+            onKeyDown={handleKeyPress}
+            className='w-[calc(50%-10px)]'
+          />
+          <Input
+            type={"text"}
+            placeholder={"answer"}
+            name={"answer3"}
+            onKeyDown={handleKeyPress}
+            className='w-[calc(50%-10px)]'
+          />
+          <Input
+            type={"text"}
+            placeholder={"answer"}
+            name={"answer4"}
+            onKeyDown={handleKeyPress}
+            className='w-[calc(50%-10px)]'
+          />
+        </div>
+        <Button className='mt-4' type={"submit"}>
+          Add question
+        </Button>
+      </form>
+
       {questions.length !== 0 && (
         <WhiteContainer className='mt-5'>
           <AddedQuestionsList

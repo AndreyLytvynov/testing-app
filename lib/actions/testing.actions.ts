@@ -84,6 +84,20 @@ export async function getPopularTests(): Promise<TestResponse[]> {
   }
 }
 
+export async function searchTests(query: string): Promise<TestResponse[]> {
+  await connectToDB();
+  try {
+    const tests = await Test.find({ name: new RegExp(query, "i") }).limit(0);
+
+    if (!tests) {
+      throw new Error(`Error getting list of tests`);
+    }
+    return tests as TestResponse[];
+  } catch (error: any) {
+    throw new Error(`${error.message}`);
+  }
+}
+
 export async function CreatePassedTest(
   testId: string,
   incorrectlyAnswered: any[],
